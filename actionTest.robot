@@ -13,7 +13,7 @@ LoginTest
       click element    xpath://*[@id="continue"]
       input password     xpath://*[@id="ap_password"]    198934
       click element    xpath://*[@id="signInSubmit"]
-      sleep    3
+      sleep    2
       open browser    https://www.google.se/   chrome
       close all browsers
 
