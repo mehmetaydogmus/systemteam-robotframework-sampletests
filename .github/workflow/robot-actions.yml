@@ -1,7 +1,4 @@
-name: Run Robot Framework Tests
-
-on:   push
-
+  robot_test:
     runs-on: ubuntu-latest
     name: Run Robot Framework Tests
     steps:
@@ -9,3 +6,6 @@ on:   push
         uses: actions/checkout@v2
       - name: Robot Framework
         uses: joonvena/robotframework-docker-action@v1.0
+        with:
+          browser: 'firefox'
+          robot_threads: 2
