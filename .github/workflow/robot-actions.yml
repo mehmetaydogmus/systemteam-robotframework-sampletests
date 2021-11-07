@@ -6,6 +6,3 @@
         uses: actions/checkout@v2
       - name: Robot Framework
         uses: joonvena/robotframework-docker-action@v1.0
-        with:
-          browser: 'firefox'
-          robot_threads: 2
