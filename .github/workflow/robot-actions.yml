@@ -1,4 +1,7 @@
-  robot_test:
+name: Run Robot Framework Tests
+
+on:   push
+
     runs-on: ubuntu-latest
     name: Run Robot Framework Tests
     steps:
