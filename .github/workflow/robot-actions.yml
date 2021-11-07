@@ -1,6 +1,6 @@
 name: Robot Framework Action
 
-on: push  
+on: [push]
   
   robot_test:
     runs-on: ubuntu-latest
