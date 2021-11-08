@@ -44,7 +44,6 @@ jobs:
           if: ${{ github.event_name == 'push' }}
           env:
          
-            DEFAULT_BRANCH: main
             GH_ACCESS_TOKEN: ${{ github.TOKEN }}
             REPO_OWNER: ${{ github.REPOSITORY_OwNER }}
             COMMIT_SHA: ${{ github.SHA }}
