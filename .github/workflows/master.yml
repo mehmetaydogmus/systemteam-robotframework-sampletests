@@ -34,7 +34,7 @@ jobs:
         - name: Get Repository Name
           run: |
             export REPO="$(echo "${{ github.repository }}" | awk -F / '{print $2}' | sed -e "s/:refs//")"
-            echo "::set-env name=REPOSITORY_NAME::$REPO"
+            echo "{REPOSITORY_NAME}={$REPO}" >> $GITHUB_ENV
 
             
         # when test are run for a commit, post results as a comment
