@@ -21,7 +21,7 @@ jobs:
               -v ${PWD}/reports:/opt/robotframework/reports:Z \
               -v ${PWD}/actionTest.robot:/opt/robotframework/tests:Z \
               --user $(id -u):$(id -g) \
-              chinnusj/testdocker:latest
+              xxxchinnusj/testdocker:latest
         # upload test reports as a zip file
         - name: Upload reports
           uses: actions/upload-artifact@v1
