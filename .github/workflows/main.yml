@@ -14,7 +14,10 @@ jobs:
       
       steps:
          - name: Checkout
-           uses: actions/checkout@v2
+           uses: mehmetaydogmus/github-actions-test@v1.0
+           with:      
+             tests_dir: '${{ github.workspace }}'
+
          - name: Robot Framework
            uses: joonvena/robotframework-docker-action@v1.0
            
