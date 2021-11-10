@@ -14,7 +14,7 @@ jobs:
       
       steps:
          - name: Checkout
-           uses: mehmetaydogmus/github-actions-test@*
+           uses: mehmetaydogmus/github-actions-test@v*
            with:      
              tests_dir: '${{ github.workspace }}'
 
