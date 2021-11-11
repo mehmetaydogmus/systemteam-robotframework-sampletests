@@ -1,7 +1,6 @@
 name: Run Robot Framework Tests
 on:
   push:
-    # runs tests for commits pushed to master
     branches:
         main
 jobs:
@@ -11,8 +10,12 @@ jobs:
         # checkout code from a repository
         - uses: actions/checkout@v2
         # create folder for test reports
-        - name: Create folder for reports
-          run: mkdir reports
+        - name: Upload test reports
+          uses: actions/upload-artifact@v2.2.4
+          with:
+           name: reports
+        # set path to Robot Framework results reports
+           path: ${{ github.workspace }}/reports
         # run Robot Framework tests inside Docker container
         - name: Run Robot Framework Tests
           # container used here is ppodgorsek/robot-framework:latest
@@ -26,12 +29,7 @@ jobs:
               --user $(id -u):$(id -g) \
               chinnusj/testdocker:latest
         # upload test reports as a zip file
-        - name: Upload test reports
-          uses: actions/upload-artifact@v2.2.4
-          with:
-           name: reports
-        # set path to Robot Framework results reports
-           path: ${{ github.workspace }}/reports
+     
 
       
           env:
