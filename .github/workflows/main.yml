@@ -3,7 +3,7 @@ on:
   push:
     # runs tests for commits pushed to master
     branches:
-      - master
+      - main
 jobs:
     run_tests:
         runs-on: ubuntu-latest
