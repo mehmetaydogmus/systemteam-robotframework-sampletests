@@ -11,5 +11,6 @@ jobs:
     steps:
          
       - name: Robot Framework
-        uses: mehmetaydogmus/github-actions-test@master
-
+        uses: joonvena/robotframework-docker-action@v1.0
+        with:
+            robot_tests_dir: 'robot_tests'
