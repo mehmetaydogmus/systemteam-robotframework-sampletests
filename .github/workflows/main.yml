@@ -3,14 +3,17 @@ on:
   push:
     # runs tests for commits pushed to master
     branches:
-      - main
+        main
 jobs:
     run_tests:
         runs-on: ubuntu-latest
         steps:
         # checkout code from a repository
         - uses: actions/checkout@v2
-         # run Robot Framework tests inside Docker container
+        # create folder for test reports
+        - name: Create folder for reports
+          run: mkdir reports
+        # run Robot Framework tests inside Docker container
         - name: Run Robot Framework Tests
           # container used here is ppodgorsek/robot-framework:latest
           # see container documentation for usage: https://hub.docker.com/r/ppodgorsek/robot-framework/dockerfile
@@ -21,12 +24,13 @@ jobs:
               -v ${PWD}/reports:/opt/robotframework/reports:Z \
               -v ${PWD}/:/opt/robotframework/tests:Z \
               --user $(id -u):$(id -g) \
-              ${PWD}
+              chinnusj/testdocker:latest
         # upload test reports as a zip file
-        - name: Upload reports
-          uses: actions/upload-artifact@v1
-          if: always()
-          with:
-            name: reports
-            # set path to Robot Framework results reports. Exclude dummy file that is needed because of ppodgorsek image priviledges.
-            path: ${{ github.workspace }}/reports
+
+      
+          env:
+            GH_ACCESS_TOKEN: ${{ github.TOKEN }}
+            REPO_OWNER: ${{ github.REPOSITORY_OwNER }}
+            COMMIT_SHA: ${{ github.SHA }}
+            REPOSITORY: ${{ env.REPOSITORY_NAME }}
+            REPORT_PATH: ${{ github.workspace }}/reports
