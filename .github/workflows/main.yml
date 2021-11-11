@@ -26,6 +26,12 @@ jobs:
               --user $(id -u):$(id -g) \
               chinnusj/testdocker:latest
         # upload test reports as a zip file
+        - name: Upload test reports
+          uses: actions/upload-artifact@v2.2.4
+          with:
+           name: reports
+        # set path to Robot Framework results reports
+           path: ${{ github.workspace }}/reports
 
       
           env:
@@ -34,3 +40,4 @@ jobs:
             COMMIT_SHA: ${{ github.SHA }}
             REPOSITORY: ${{ env.REPOSITORY_NAME }}
             REPORT_PATH: ${{ github.workspace }}/reports
+            
