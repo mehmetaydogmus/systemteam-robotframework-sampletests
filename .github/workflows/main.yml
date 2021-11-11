@@ -33,4 +33,10 @@ jobs:
             REPO_OWNER: ${{ github.REPOSITORY_OwNER }}
             COMMIT_SHA: ${{ github.SHA }}
             REPOSITORY: ${{ env.REPOSITORY_NAME }}
-            REPORT_PATH: ${{ github.workspace }}/reports
+            
+        - name: Upload test reports
+          uses: actions/upload-artifact@v2.2.4
+          with:
+           name: reports
+        # set path to Robot Framework results reports
+           path: ${{ github.workspace }}/reports
