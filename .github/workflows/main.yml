@@ -1,24 +1,16 @@
-
 name: "run-test"
-
 on:
-  push:
-    branches:
-        main
+    push:
+      branches: main
+
 jobs:
-
+  
   robot_test:
-    
-      runs-on: ubuntu-latest
-      name: Run Robot Framework Tests
-      
-      steps:
-         - name: Checkout
-           uses: mehmetaydogmus/github-actions-test@v*
-           with:      
-             tests_dir: '${{ github.workspace }}'
+    runs-on: ubuntu-latest
+    name: Run Robot Framework Tests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Robot Framework
+        uses: joonvena/robotframework-docker-action@v1.0
 
-         - name: Robot Framework
-           uses: joonvena/robotframework-docker-action@v1.0
-           
-           
