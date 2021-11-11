@@ -1,36 +1,23 @@
-name: Run Robot Framework Tests
+name: Robot Framework
+
 on:
   push:
-    # runs tests for commits pushed to master
-    branches:
-        main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
-    run_tests:
-        runs-on: ubuntu-latest
-        steps:
-        # checkout code from a repository
-        - uses: actions/checkout@v2
-        # create folder for test reports
+  build:
+
+    runs-on: ubuntu-latest
+    name: Run Robot Framework Tests
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Robot Framework
+        uses: edimohseni/rf-action-helper@v1.0
+        
+      - name: Upload test reports
+        uses: actions/upload-artifact@v2.2.4
+      
    
-        - name: Run Robot Framework Tests
-          # container used here is ppodgorsek/robot-framework:latest
-          # see container documentation for usage: https://hub.docker.com/r/ppodgorsek/robot-framework/dockerfile
-          # it is required that GitHub repository contains folder "reports". Commit some file inside "reports" to create it
-          # place tests in folder tests or change docker run command accordingly
-          run: |
-            docker run \
-              -v ${PWD}/reports:/opt/robotframework/reports:Z \
-              -v ${PWD}/:/opt/robotframework/tests:Z \
-              --user $(id -u):$(id -g) \
-              chinnusj/testdocker:latest
-
-      
- 
-
-      
-          env:
-            GH_ACCESS_TOKEN: ${{ github.TOKEN }}
-            REPO_OWNER: ${{ github.REPOSITORY_OwNER }}
-            COMMIT_SHA: ${{ github.SHA }}
-            REPOSITORY: ${{ env.REPOSITORY_NAME }}
-            REPORT_PATH: ${{ github.workspace }}/reports
