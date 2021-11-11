@@ -27,10 +27,8 @@ jobs:
               chinnusj/testdocker:latest
         # upload test reports as a zip file
 
-
-
       
-        env:
+          env:
             GH_ACCESS_TOKEN: ${{ github.TOKEN }}
             REPO_OWNER: ${{ github.REPOSITORY_OwNER }}
             COMMIT_SHA: ${{ github.SHA }}
