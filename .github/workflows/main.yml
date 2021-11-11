@@ -28,6 +28,16 @@ jobs:
         # upload test reports as a zip file
 
       
+        - name: Download reports
+          uses: actions/download-artifact@v1
+          with:
+            name: reports
+        - name: Send report to commit
+          uses: joonvena/robotframework-reporter-action@v1.1
+          with:
+            gh_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      
           env:
             GH_ACCESS_TOKEN: ${{ github.TOKEN }}
             REPO_OWNER: ${{ github.REPOSITORY_OwNER }}
