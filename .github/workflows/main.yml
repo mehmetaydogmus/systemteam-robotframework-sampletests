@@ -11,9 +11,7 @@ jobs:
         # checkout code from a repository
         - uses: actions/checkout@v2
         # create folder for test reports
-        - name: Create folder for reports
-          run: mkdir reports
-        # run Robot Framework tests inside Docker container
+   
         - name: Run Robot Framework Tests
           # container used here is ppodgorsek/robot-framework:latest
           # see container documentation for usage: https://hub.docker.com/r/ppodgorsek/robot-framework/dockerfile
@@ -25,17 +23,9 @@ jobs:
               -v ${PWD}/:/opt/robotframework/tests:Z \
               --user $(id -u):$(id -g) \
               chinnusj/testdocker:latest
-        # upload test reports as a zip file
 
       
-        - name: Download reports
-          uses: actions/download-artifact@v1
-          with:
-            name: reports
-        - name: Send report to commit
-          uses: joonvena/robotframework-reporter-action@v1.1
-          with:
-            gh_access_token: ${{ secrets.GITHUB_TOKEN }}
+ 
 
       
           env:
