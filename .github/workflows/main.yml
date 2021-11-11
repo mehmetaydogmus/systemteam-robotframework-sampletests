@@ -1,68 +1,17 @@
-name: 'Robot Framework'
-on: 
+name: Run Robot Framework Tests
+on:
   push:
-     main
-   inputs:
-   allowed_shared_memory:
-    description: 'Shared memory that Docker container is allowed to use'
-    required: true
-    default: '1g'
-  robot_threads:
-    description: 'Execute tests in parallel'
-    required: true
-    default: 1
-  pabot_options:
-    description: 'Extra settings for parallel execution. https://github.com/mkorpela/pabot#command-line-options'
-    required: true
-    default: ''
-  robot_options:
-    description: 'Extra options for robot command'
-    required: true
-    default: ''
-  screen_color_depth:
-    description: 'Color depth of the virtual screen'
-    required: true
-    default: 24
-  screen_height:
-    description: 'Height of the virtual screen'
-    required: true
-    default: 1080
-  screen_width:
-    description: 'Width of the virtual screen'
-    required: true
-    default: 1920
-  robot_tests_dir:
-    description: 'Directory where Robot tests are located in the repository'
-    required: true
-    default: 'robot_tests'
-  robot_reports_dir:
-    description: 'Where will the report from test be saved'
-    required: true
-    default: 'reports'
-
-runs:
-  using: 'composite'
-  steps:
-    - shell: bash
-      run: |
-        ls -al  ${{ github.action_path }}/test.sh
-        chmod 777 ${{ github.action_path }}/test.sh
-        ls -al  ${{ github.action_path }}/test.sh
-        ${{ github.action_path }}/test.sh
-      env:
-        ALLOWED_SHARED_MEMORY: ${{ inputs.allowed_shared_memory }}
-        ROBOT_THREADS: ${{ inputs.robot_threads }}
-        PABOT_OPTIONS: ${{ inputs.pabot_options }}
-        ROBOT_OPTIONS: ${{ inputs.robot_options }}
-        SCREEN_COLOR_DEPTH: ${{ inputs.screen_color_depth }}
-        SCREEN_HEIGHT: ${{ inputs.screen_height }}
-        SCREEN_WIDTH: ${{ inputs.screen_width }}
-        ROBOT_TESTS_DIR: ${{ inputs.robot_tests_dir }}
-        ROBOT_REPORTS_DIR: ${{ inputs.robot_reports_dir }}
-    # upload test report artifact as a zip file to the current job execution
-    - name: Upload test reports
-      uses: actions/upload-artifact@v2.2.4
-      with:
-        name: reports
-        # set path to Robot Framework results reports
-        path: ${{ github.workspace }}/reports
+    # runs tests for commits pushed to master
+    branches:
+        main
+jobs:
+    run_tests:
+        runs-on: ubuntu-latest
+        steps:
+        
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Robot Framework
+          uses: joonvena/robotframework-docker-action@v1.0
+          
+          
