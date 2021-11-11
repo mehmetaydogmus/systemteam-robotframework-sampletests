@@ -17,12 +17,11 @@ jobs:
           # it is required that GitHub repository contains folder "reports". Commit some file inside "reports" to create it
           # place tests in folder tests or change docker run command accordingly
           run: |
-            docker run \
-              -v ${PWD}/reports:/opt/robotframework/reports:Z \
-              -v ${PWD}/actionTest.robot:/opt/robotframework/tests:Z \
-              --user $(id -u):$(id -g) \
-              chinnusj/testdocker:latest
-        # upload test reports as a zip file
+              ls -al  ${{ github.action_path }}/test.sh
+              chmod 777 ${{ github.action_path }}/test.sh
+              ls -al  ${{ github.action_path }}/test.sh
+              ${{ github.action_path }}/test.sh
+          
 
       
           env:
