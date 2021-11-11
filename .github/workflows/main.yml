@@ -11,5 +11,5 @@ jobs:
     steps:
          
       - name: Robot Framework
-        uses: mehmetaydogmus/github-actions-test@v1.0
+        uses: mehmetaydogmus/github-actions-test@v1.0.0
         
