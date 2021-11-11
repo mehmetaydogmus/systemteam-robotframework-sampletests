@@ -1,23 +1,35 @@
-name: Robot Framework
-
+name: Run Robot Framework Tests
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+    # runs tests for commits pushed to master
+    branches:
+      - master
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-    name: Run Robot Framework Tests
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Robot Framework
-        uses: joonvena/robotframework-docker-action@v1.0
-        
-      - name: Upload test reports
-        uses: actions/upload-artifact@v2.2.4
-      
-   
+    run_tests:
+        runs-on: ubuntu-latest
+        steps:
+        # checkout code from a repository
+        - uses: actions/checkout@v2
+        # create folder for test reports
+        - name: Create folder for reports
+          run: mkdir reports
+        # run Robot Framework tests inside Docker container
+        - name: Run Robot Framework Tests
+          # container used here is ppodgorsek/robot-framework:latest
+          # see container documentation for usage: https://hub.docker.com/r/ppodgorsek/robot-framework/dockerfile
+          # it is required that GitHub repository contains folder "reports". Commit some file inside "reports" to create it
+          # place tests in folder tests or change docker run command accordingly
+          run: |
+            docker run \
+              -v ${PWD}/reports:/opt/robotframework/reports:Z \
+              -v ${PWD}/:/opt/robotframework/tests:Z \
+              --user $(id -u):$(id -g) \
+              ${PWD}
+        # upload test reports as a zip file
+        - name: Upload reports
+          uses: actions/upload-artifact@v1
+          if: always()
+          with:
+            name: reports
+            # set path to Robot Framework results reports. Exclude dummy file that is needed because of ppodgorsek image priviledges.
+            path: ${{ github.workspace }}/reports
