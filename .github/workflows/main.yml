@@ -38,6 +38,8 @@ jobs:
           run: |
             export REPO="$(echo "${{ github.repository }}" | awk -F / '{print $2}' | sed -e "s/:refs//")"
             echo "::set-env name=REPOSITORY_NAME::$REPO"
+            with:
+            ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         # when test are run for a commit, post results as a comment
         # note: comment is not posted for tests triggered for pull requests, only for a main branch (master)
       
