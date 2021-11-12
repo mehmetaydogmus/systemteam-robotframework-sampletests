@@ -15,9 +15,7 @@ jobs:
         - name: Create folder for reports
           run: mkdir reports
           
-        - name: Create folder for tests
-          run: mkdir tests
-                 
+                
         - name: Run Robot Sample Tests in DOCKER container
           run: |
             docker run \
