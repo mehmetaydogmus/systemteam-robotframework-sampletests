@@ -7,7 +7,7 @@ Library  SeleniumLibrary
 *** Test Cases ***
 LoginTest
       open browser   https://www.amazon.se/     chrome
-      sleep    3
+      sleep    2
       close all browsers
      
 *** Keywords ***
