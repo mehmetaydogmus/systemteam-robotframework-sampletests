@@ -12,21 +12,15 @@ jobs:
         - name: checkout code to default container
           uses: actions/checkout@v2.4.0
           
-        - name : List Path
-          run : "ls -la"
-             
         - name: Create folder for reports
           run: |
                 mkdir reports
-                
-        - name : List Path
-          run : "ls -la"
                  
         - name: Run Robot Sample Tests in DOCKER container
           run: |
             docker run \
               -v ${PWD}/reports:/opt/robotframework/reports:Z \
-              -v ${PWD}/actionTest.robot:/opt/robotframework/tests:Z \
+              -v ${PWD}/:/opt/robotframework/tests:Z \
               --user $(id -u):$(id -g) \
               ppodgorsek/robot-framework:latest
               
