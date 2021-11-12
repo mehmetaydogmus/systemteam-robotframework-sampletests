@@ -17,7 +17,13 @@ jobs:
           
         - name : List Path
           run : "ls -la"
-      
+             
+        - name: Create folder for reports
+          run: |
+                mkdir reports
+                
+        - name : List Path
+          run : "ls -la"
                  
         - name: Run Robot Sample Tests in DOCKER container
           run: |
@@ -33,7 +39,3 @@ jobs:
             name: reports
             path: ${{ github.workspace }}/reports
             
-        - name: add test result as comment to commit
-          uses: joonvena/robotframework-reporter-action@v1.1
-          with:
-            gh_access_token: ${{ github.TOKEN }}
