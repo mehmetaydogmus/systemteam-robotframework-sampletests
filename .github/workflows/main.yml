@@ -15,13 +15,7 @@ jobs:
         - name : List Path
           run : "ls -la"
              
-        - name: Create folder for reports
-          run: |
-                mkdir reports
-                
-        - name : List Path
-          run : "ls -la"
-                 
+                     
         - name: Run Robot Sample Tests in DOCKER container
           run: |
             docker run \
