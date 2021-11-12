@@ -31,13 +31,12 @@ jobs:
               chinnusj/testdocker:latest
               
 
-        - name: Download reports
-          uses: actions/download-artifact@v1
+        - name: Upload test reports
+          uses: actions/upload-artifact@v2.2.4
           with:
-            name: reports
-        - name: Send report to commit
-          uses: joonvena/robotframework-reporter-action@v1.1
-          with:
-            gh_access_token: ${{ secrets.GITHUB_TOKEN }}
+           name: reports
+        # set path to Robot Framework results reports
+           path: ${{ github.workspace }}/reports
+         
 
             
