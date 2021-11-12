@@ -30,14 +30,14 @@ jobs:
               --user $(id -u):$(id -g) \
               chinnusj/testdocker:latest
               
-        - name: Upload test reports
-          uses: actions/upload-artifact@v1
+
+        - name: Download reports
+          uses: actions/download-artifact@v1
           with:
             name: reports
-            path: ${{ github.workspace }}/reports
-            
-        - name: add test result as comment to commit
+        - name: Send report to commit
           uses: joonvena/robotframework-reporter-action@v1.1
           with:
-            gh_access_token: ${{ github.TOKEN }}
+            gh_access_token: ${{ secrets.GITHUB_TOKEN }}
+
             
