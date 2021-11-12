@@ -13,8 +13,7 @@ jobs:
           uses: actions/checkout@v2.4.0
           
         - name: Create folder for reports
-          run: |
-                mkdir reports
+          run: mkdir reports
                  
         - name: Run Robot Sample Tests in DOCKER container
           run: |
