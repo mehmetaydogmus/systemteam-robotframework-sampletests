@@ -12,32 +12,21 @@ jobs:
         - name: checkout code to default container
           uses: actions/checkout@v2.4.0
           
-        - name : List Path
-          run : "ls -la"
-             
         - name: Create folder for reports
-          run: |
-                mkdir reports
+          run: mkdir reports
+          
                 
-        - name : List Path
-          run : "ls -la"
-                 
         - name: Run Robot Sample Tests in DOCKER container
           run: |
             docker run \
               -v ${PWD}/reports:/opt/robotframework/reports:Z \
-              -v ${PWD}/actionTest.robot:/opt/robotframework/tests:Z \
+              -v ${PWD}/tests:/opt/robotframework/tests:Z \
               --user $(id -u):$(id -g) \
-              chinnusj/testdocker:latest
+              ppodgorsek/robot-framework:latest
               
         - name: Upload test reports
-          uses: actions/upload-artifact@v1
+          uses: actions/upload-artifact@v2.2.4
           with:
-            name: reports
-            path: ${{ github.workspace }}/reports
-            
-        - name: add test result as comment to commit
-          uses: joonvena/robotframework-reporter-action@v1.1
-          with:
-            gh_access_token: ${{ github.TOKEN }}
-            
+           name: reports
+        # set path to Robot Framework results reports
+           path: ${{ github.workspace }}/reports
